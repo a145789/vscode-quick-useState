@@ -1,6 +1,6 @@
-# react-quick-usestate README
+# react-quick-useState README
 
-This is the README for your extension "react-quick-usestate". After writing up a brief description, we recommend including the following sections.
+This is the README for your extension "react-quick-useState". After writing up a brief description, we recommend including the following sections.
 
 ## Features
 
