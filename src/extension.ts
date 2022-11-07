@@ -1,5 +1,6 @@
 import * as vscode from "vscode";
 
+const reg = /^([a-zA-Z\_\$][\w\$]*)(\.([\[\]\{\}\:\w\<\>\|\&]+)){0,1}(\.(.*)){0,1}$/g;
 class MyCompletionItemProvider implements vscode.CompletionItemProvider {
   private position?: vscode.Position;
   private str = "";
@@ -11,26 +12,22 @@ class MyCompletionItemProvider implements vscode.CompletionItemProvider {
     document: vscode.TextDocument,
     position: vscode.Position
   ) {
-    console.log('trigger',document.lineAt(position).text);
-
     this.position = position;
-
+    console.log(document
+      .lineAt(position)
+      .text);
+    
     const linePrefix = document
       .lineAt(position)
       .text.slice(0, position.character);
 
     if (!linePrefix?.startsWith("const ") || !linePrefix.split("const ")[1]) {
+      this.str = "";
       return [];
     }
 
-    let names = '';
-    for (const iterator of linePrefix
-      .split("const ")[1]
-      .matchAll(
-        /^([a-zA-Z\_\$][\w\$]*)(\<([\w\{\}\[\]\:])*){0,1}(\((.)*\){0,1}){0,1}$/g
-      )) {
-      const [_1, name, type, _2, value] = iterator;
-      names = name;
+    for (const iterator of linePrefix.split("const ")[1].matchAll(reg)) {
+      const [_1, name, _2, type, _3, value] = iterator;
       this.str =
         "const [" +
         name +
@@ -39,31 +36,32 @@ class MyCompletionItemProvider implements vscode.CompletionItemProvider {
         "] = useState";
 
       if (type) {
-        if (type.length === 1) {
-          this.str += "<>";
+        if (!value) {
+          this.str += `(${type})`;
         } else {
-          this.str += type + ">";
+          if (type === "<" || type === '<>') {
+            this.str += "<>";
+          } else {
+            this.str += `<${type}>`;
+          }
         }
       }
 
       if (value) {
-        if (value.endsWith(")")) {
-          this.str += value;
-        } else {
-          this.str += value + ")";
-        }
-      } else {
+        this.str += `(${value})`;
+      } else if (!type) {
         this.str += "()";
       }
     }
 
+    console.log(this.str,linePrefix);
+    
     const snippetCompletion = new vscode.CompletionItem(
-      names,
+      linePrefix,
       vscode.CompletionItemKind.Snippet
     );
 
     snippetCompletion.detail = this.str;
-  console.log('a ', 1);
     return [snippetCompletion];
   }
 
@@ -109,13 +107,7 @@ export function activate(context: vscode.ExtensionContext) {
   );
 
   const disposable = vscode.languages.registerCompletionItemProvider(
-    [
-      "javascript",
-      "javascriptreact",
-      "typescript",
-      "typescriptreact",
-      "vue",
-    ],
+    ["javascript", "javascriptreact", "typescript", "typescriptreact", "vue"],
     new MyCompletionItemProvider()
   );
 
