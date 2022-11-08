@@ -1,11 +1,13 @@
 import * as vscode from "vscode";
 
-const reg = /^([a-zA-Z\_\$][\w\$]*)(\.([\[\]\{\}\:\w\<\>\|\&]+)){0,1}(\.(.*)){0,1}$/g;
+
+const TRIGGER_CHARACTERS = ['{', '}', '[', ']', '/', '\'', '"', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+
 class MyCompletionItemProvider implements vscode.CompletionItemProvider {
   private position?: vscode.Position;
   private str = "";
 
-  constructor() {}
+  constructor() { }
 
   // 提供代码提示的候选项
   public provideCompletionItems(
@@ -13,10 +15,7 @@ class MyCompletionItemProvider implements vscode.CompletionItemProvider {
     position: vscode.Position
   ) {
     this.position = position;
-    console.log(document
-      .lineAt(position)
-      .text);
-    
+
     const linePrefix = document
       .lineAt(position)
       .text.slice(0, position.character);
@@ -26,58 +25,54 @@ class MyCompletionItemProvider implements vscode.CompletionItemProvider {
       return [];
     }
 
-    for (const iterator of linePrefix.split("const ")[1].matchAll(reg)) {
-      const [_1, name, _2, type, _3, value] = iterator;
-      this.str =
-        "const [" +
-        name +
-        ", set" +
-        name.replace(name[0], name[0].toUpperCase()) +
-        "] = useState";
+    const [name, type, value] = linePrefix.split("const ")[1].split('/');
+    this.str =
+      "const [" +
+      name +
+      ", set" +
+      name.replace(name[0], name[0].toUpperCase()) +
+      "] = useState";
 
-      if (type) {
-        if (!value) {
-          this.str += `(${type})`;
+    if (type) {
+      if (!value) {
+        this.str += `(${type})`;
+      } else {
+        if (type === "<" || type === '<>') {
+          this.str += "<>";
         } else {
-          if (type === "<" || type === '<>') {
-            this.str += "<>";
-          } else {
-            this.str += `<${type}>`;
-          }
+          this.str += `<${type}>`;
         }
-      }
-
-      if (value) {
-        this.str += `(${value})`;
-      } else if (!type) {
-        this.str += "()";
       }
     }
 
-    console.log(this.str,linePrefix);
-    
+    if (value) {
+      this.str += `(${value})`;
+    } else if (!type) {
+      this.str += "()";
+    }
+
     const snippetCompletion = new vscode.CompletionItem(
       linePrefix,
       vscode.CompletionItemKind.Snippet
     );
 
-    snippetCompletion.detail = this.str;
+    snippetCompletion.documentation = this.str;
+    snippetCompletion.detail = 'quickly generate useState';
     return [snippetCompletion];
   }
 
   // 光标选中当前自动补全item时触发动作
   public resolveCompletionItem(item: vscode.CompletionItem) {
-    // const label = item.label;
-    // if (this.position && typeof label === "string") {
-    //   item.command = {
-    //     command: "vscode-extension.quick-useState",
-    //     title: "refactor",
-    //     arguments: [this.position.translate(0, label.length + 1), this.str], // 这里可以传递参数给该命令
-    //   };
-    // }
+    const label = item.label;
+    if (this.position && typeof label === "string") {
+      item.command = {
+        command: "vscode-extension.quick-useState",
+        title: "refactor",
+        arguments: [this.position.translate(0, label.length + 1), this.str], // 这里可以传递参数给该命令
+      };
+    }
 
-    // return item;
-    return null;
+    return item;
   }
 }
 
@@ -107,8 +102,9 @@ export function activate(context: vscode.ExtensionContext) {
   );
 
   const disposable = vscode.languages.registerCompletionItemProvider(
-    ["javascript", "javascriptreact", "typescript", "typescriptreact", "vue"],
-    new MyCompletionItemProvider()
+    ["javascript", "javascriptreact", "typescript", "typescriptreact", "vue", "html"],
+    new MyCompletionItemProvider(),
+    ...TRIGGER_CHARACTERS
   );
 
   context.subscriptions.push(disposable);

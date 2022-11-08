@@ -10,6 +10,7 @@
     "Other"
   ],
   "activationEvents": [
+    "onLanguage:html",
     "onLanguage:vue",
     "onLanguage:javascript",
     "onLanguage:typescript",
@@ -31,9 +32,8 @@
     "compile-tests": "tsc -p . --outDir out",
     "watch-tests": "tsc -p . -w --outDir out",
     "lint": "eslint src --ext ts",
-    "test": "node ./out/test/runTest.js",
     "build": "pnpm vsce package --no-dependencies",
-    "publish": "pnpm compile & pnpm build & pnpm vsce publish --no-dependenciesh"
+    "publish": "pnpm compile & pnpm build & pnpm vsce publish --no-dependencies"
   },
   "devDependencies": {
     "@types/glob": "^8.0.0",
@@ -42,7 +42,6 @@
     "@types/vscode": "^1.73.0",
     "@typescript-eslint/eslint-plugin": "^5.42.0",
     "@typescript-eslint/parser": "^5.42.0",
-    "@vscode/test-electron": "^2.2.0",
     "eslint": "^8.26.0",
     "glob": "^8.0.3",
     "mocha": "^10.1.0",
