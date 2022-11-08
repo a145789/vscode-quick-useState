@@ -9,6 +9,13 @@
   "categories": [
     "Other"
   ],
+  "keywords": [
+    "react",
+    "useState",
+    "snippets"
+  ],
+  "license": "MIT",
+  "publisher": "clencat",
   "activationEvents": [
     "onLanguage:html",
     "onLanguage:vue",
@@ -20,10 +27,10 @@
   "main": "./dist/extension.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/a145789/react-quick-useState"
+    "url": "git+https://github.com/a145789/vscode-quick-useState"
   },
   "bugs": {
-    "url": "https://github.com/a145789/react-quick-useState/issues"
+    "url": "https://github.com/a145789/vscode-quick-useState/issues"
   },
   "scripts": {
     "compile": "webpack",
@@ -33,7 +40,10 @@
     "watch-tests": "tsc -p . -w --outDir out",
     "lint": "eslint src --ext ts",
     "build": "pnpm vsce package --no-dependencies",
-    "publish": "pnpm compile & pnpm build & pnpm vsce publish --no-dependencies"
+    "publish": "pnpm compile & pnpm build & pnpm vsce publish --no-dependencies",
+    "release-one": "standard-version -r major",
+    "release-two": "standard-version -r minor",
+    "release-three": "standard-version -r patch"
   },
   "devDependencies": {
     "@types/glob": "^8.0.0",
@@ -45,6 +55,7 @@
     "eslint": "^8.26.0",
     "glob": "^8.0.3",
     "mocha": "^10.1.0",
+    "standard-version": "^9.5.0",
     "ts-loader": "^9.4.1",
     "typescript": "^4.8.4",
     "vsce": "^2.13.0",
