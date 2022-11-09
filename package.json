@@ -16,6 +16,7 @@
   ],
   "license": "MIT",
   "publisher": "clencat",
+  "icon": "icon.png",
   "activationEvents": [
     "onLanguage:html",
     "onLanguage:vue",
