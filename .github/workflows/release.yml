@@ -20,7 +20,7 @@ jobs:
       - run: npm i -g pnpm
       - name: Install
         run: pnpm install --no-frozen-lockfile
-        
-      - run: yarn publish --non-interactive
+
+      - run: pnpm run publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
