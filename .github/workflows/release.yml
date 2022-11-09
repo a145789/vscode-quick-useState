@@ -18,9 +18,14 @@ jobs:
           registry-url: https://registry.npmjs.org/
 
       - run: npm i -g pnpm
+
       - name: Install
         run: pnpm install --no-frozen-lockfile
-        
-      - run: yarn publish --non-interactive
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+
+      - run: pnpm run compile
+
+      - run: ls
+
+      - run: pnpm run build
+
+      - run: pnpm vsce publish --pat ${{ secrets.MARKETPLACE_TOKEN }} --no-dependencies

@@ -2,7 +2,7 @@
   "name": "react-quick-useState",
   "displayName": "React Quick useState",
   "description": "",
-  "version": "0.1.2",
+  "version": "0.1.6",
   "engines": {
     "vscode": "^1.73.0"
   },
