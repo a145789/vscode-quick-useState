@@ -21,6 +21,6 @@ jobs:
       - name: Install
         run: pnpm install --no-frozen-lockfile
 
-      - run: pnpm run publish
+      - run: pnpm run publish --no license
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
