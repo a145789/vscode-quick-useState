@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.1](https://github.com/a145789/vscode-quick-useState/compare/v0.1.0...v0.1.1) (2022-11-09)
+
+
+### Bug Fixes
+
+* fix icon path ([4b6978f](https://github.com/a145789/vscode-quick-useState/commit/4b6978f47c81b722ab6e5a9c0db035ca2893436a))
+
 ## 0.1.0 (2022-11-08)
 
 
