@@ -1,8 +1,12 @@
 <h1 align="center">React Quick useState</h1>
 
-Quick generate `React useState` code
+<p align="center">
+Quick generate React useState code
+</p>
 
 <p align="center">
+<a href="https://marketplace.visualstudio.com/items?itemName=clencat.react-quick-useState" target="__blank"><img src="https://img.shields.io/visual-studio-marketplace/v/clencat.react-quick-useState.svg?color=4d9375&amp;label=Marketplace&logo=visual-studio-code" alt="Visual Studio Marketplace Version" /></a>
+</p>
 
 # Usage
 
