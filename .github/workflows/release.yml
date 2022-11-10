@@ -17,10 +17,9 @@ jobs:
           node-version: 16.x
           registry-url: https://registry.npmjs.org/
 
-      - run: npm i -g pnpm
-      - name: Install
-        run: pnpm install --no-frozen-lockfile
-
-      - run: pnpm run publish --no license
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+      - run: npm ci
+      - name: Publish to Visual Studio Marketplace
+        uses: HaaLeo/publish-vscode-extension@v1
+        with:
+          pat: ${{ secrets.NPM_TOKEN }}
+          registryUrl: https://marketplace.visualstudio.com
