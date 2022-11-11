@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.2.0](https://github.com/a145789/vscode-quick-useState/compare/v0.1.7...v0.2.0) (2022-11-11)
+
+
+### Bug Fixes
+
+* 修改在编辑器不以行开头书写代码提示失效问题 ([4d4495d](https://github.com/a145789/vscode-quick-useState/commit/4d4495df8495de0e79cb9a1d1e21572c188180b1))
+
 ### [0.1.7](https://github.com/a145789/vscode-quick-useState/compare/v0.1.2...v0.1.7) (2022-11-10)
 
 ### [0.1.6](https://github.com/a145789/vscode-quick-useState/compare/v0.1.5...v0.1.6) (2022-11-10)
