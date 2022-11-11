@@ -18,9 +18,9 @@ class MyCompletionItemProvider implements vscode.CompletionItemProvider {
 
     const linePrefix = document
       .lineAt(position)
-      .text.slice(0, position.character).trim();
+      .text.slice(0, position.character)?.trimStart() || '';
 
-    if (!linePrefix?.startsWith("const ") || !linePrefix.split("const ")[1]) {
+    if (!linePrefix.startsWith("const ") || !linePrefix.split("const ")[1]) {
       this.str = "";
       return [];
     }
@@ -85,7 +85,7 @@ export function activate(context: vscode.ExtensionContext) {
     str: string
   ) => {
     const lineText = editor.document.lineAt(position.line).text;
-    const startSpaces = lineText.length - lineText.trim().length;
+    const startSpaces = lineText.length - lineText.trimStart().length;
 
     edit.delete(
       new vscode.Range(
