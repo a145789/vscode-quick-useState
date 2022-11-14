@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.1](https://github.com/a145789/vscode-quick-useState/compare/v0.2.0...v0.2.1) (2022-11-14)
+
+
+### ⚠ BREAKING CHANGES
+
+* use the '/' wake up prompt
+
+### Features
+
+* use the '/' wake up prompt ([914e4da](https://github.com/a145789/vscode-quick-useState/commit/914e4da00fd4ff5cce96bb1bc4eb57882282472a))
+* vscode versions up to 1.70.0 are supported ([878054c](https://github.com/a145789/vscode-quick-useState/commit/878054c7a4c2fe915b505e513fe87a8a1edd91f0))
+
+
+### Bug Fixes
+
+* fix wrap elements are displayed only single ([95b92b1](https://github.com/a145789/vscode-quick-useState/commit/95b92b1ada167ac82c38e72e2b7e5f4bbc3ae941))
+
 ## [0.2.0](https://github.com/a145789/vscode-quick-useState/compare/v0.1.7...v0.2.0) (2022-11-11)
 
 
