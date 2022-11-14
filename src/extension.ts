@@ -1,7 +1,31 @@
 import * as vscode from "vscode";
 
+const WRAPPING_TRIGGER_CHARACTERS = ['{', '}', '[', ']', '(', ')', '\'', '"'] as const;
+const TRIGGER_CHARACTERS = [...WRAPPING_TRIGGER_CHARACTERS, '/', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'] as const;
 
-const TRIGGER_CHARACTERS = ['{', '}', '[', ']', '/', '\'', '"', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+
+function genValue(text: string) {
+  const [startChar, endChar] = text.length === 1 ? [text[0], null] : [text[0], text[text.length - 1]];
+
+  if (!(WRAPPING_TRIGGER_CHARACTERS as readonly string[]).includes(startChar) || startChar === endChar) {
+    return text;
+  }
+
+  switch (startChar) {
+    case '"':
+    case '\'':
+      return text + startChar;
+    case '{':
+      return text + '}';
+    case '[':
+      return text + ']';
+    case '(':
+      return text + ')';
+
+    default:
+      return text;
+  }
+}
 
 class MyCompletionItemProvider implements vscode.CompletionItemProvider {
   private position?: vscode.Position;
@@ -34,7 +58,7 @@ class MyCompletionItemProvider implements vscode.CompletionItemProvider {
 
     if (type) {
       if (!value) {
-        this.str += `(${type})`;
+        this.str += `(${genValue(type)})`;
       } else {
         if (type === "<" || type === '<>') {
           this.str += "<>";
@@ -45,7 +69,7 @@ class MyCompletionItemProvider implements vscode.CompletionItemProvider {
     }
 
     if (value) {
-      this.str += `(${value})`;
+      this.str += `(${genValue(value)})`;
     } else if (!type) {
       this.str += "()";
     }
@@ -56,7 +80,7 @@ class MyCompletionItemProvider implements vscode.CompletionItemProvider {
     );
 
     snippetCompletion.documentation = this.str;
-    snippetCompletion.detail = 'quickly generate useState';
+    snippetCompletion.detail = 'enter / split code';
     snippetCompletion.range = new vscode.Range(new vscode.Position(position.line, position.character), new vscode.Position(position.line, position.character));
 
     snippetCompletion.filterText = '';
