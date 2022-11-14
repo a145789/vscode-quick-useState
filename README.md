@@ -34,3 +34,7 @@ const fooBar/Foo | Bar/'foo'
 // output
 const [fooBar, setFooBar] = useState<Foo | Bar>('foo')
 ```
+
+> 如果没显示提示，请键入 `/` 字符开启提示
+
+> If no prompt is displayed, type the character `/` to enable the prompt

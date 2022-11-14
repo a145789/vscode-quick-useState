@@ -17,8 +17,7 @@ class MyCompletionItemProvider implements vscode.CompletionItemProvider {
     this.position = position;
 
     const linePrefix = document
-      .lineAt(position)
-      .text.slice(0, position.character)?.trimStart() || '';
+      .lineAt(position).text.slice(0, position.character)?.trimStart() || '';
 
     if (!linePrefix.startsWith("const ") || !linePrefix.split("const ")[1]) {
       this.str = "";
@@ -58,6 +57,10 @@ class MyCompletionItemProvider implements vscode.CompletionItemProvider {
 
     snippetCompletion.documentation = this.str;
     snippetCompletion.detail = 'quickly generate useState';
+    snippetCompletion.range = new vscode.Range(new vscode.Position(position.line, position.character), new vscode.Position(position.line, position.character));
+
+    snippetCompletion.filterText = '';
+
     return [snippetCompletion];
   }
 
