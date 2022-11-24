@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.3.0](https://github.com/a145789/vscode-quick-useState/compare/v0.2.2...v0.3.0) (2022-11-24)
+
+
+### Bug Fixes
+
+* 修改输入文本在包含等号时不需要转换 ([964361b](https://github.com/a145789/vscode-quick-useState/commit/964361b791f0115026b2ce25af5e1b0f215efd1d))
+
 ### [0.2.2](https://github.com/a145789/vscode-quick-useState/compare/v0.2.1...v0.2.2) (2022-11-14)
 
 ### [0.2.1](https://github.com/a145789/vscode-quick-useState/compare/v0.2.0...v0.2.1) (2022-11-14)
