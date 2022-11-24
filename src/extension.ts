@@ -43,7 +43,7 @@ class MyCompletionItemProvider implements vscode.CompletionItemProvider {
     const linePrefix = document
       .lineAt(position).text.slice(0, position.character)?.trimStart() || '';
 
-    if (!linePrefix.startsWith("const ") || !linePrefix.split("const ")[1]) {
+    if (!linePrefix.startsWith("const ") || !linePrefix.split("const ")[1] || linePrefix.indexOf("=") > -1) {
       this.str = "";
       return [];
     }
